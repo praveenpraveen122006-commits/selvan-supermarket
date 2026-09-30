@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selvan Super Market - Order via WhatsApp (8778574669) | All Products, MRP & Offer Prices</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              300: '#86efac',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+            },
+            whatsapp: {
+              DEFAULT: '#25d366',
+              dark: '#128c7e',
+              light: '#dcf8c6'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Bootstrap Icons CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+  <!-- TOP ANNOUNCEMENT BAR -->
+  <div class="bg-gradient-to-r from-emerald-800 via-emerald-700 to-green-800 text-white text-xs py-2 px-4 shadow-sm">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-1.5 text-center sm:text-left">
+      <div class="flex items-center gap-2 font-medium">
+        <span class="bg-amber-400 text-emerald-950 font-extrabold px-2 py-0.5 rounded text-[10px] uppercase tracking-wider">Mega Sale</span>
+        <span>🎉 Flat 15% to 40% OFF on Groceries & Home Essentials! Daily Fresh Stock.</span>
+      </div>
+      
+      <!-- WhatsApp & Audio Controls -->
+      <div class="flex items-center gap-3 text-emerald-100 text-[11px] flex-wrap justify-center">
+        <!-- Direct WhatsApp Link -->
+        <a 
+          href="https://wa.me/918778574669?text=Hello%20Selvan%20Super%20Market%2C%20I%20want%20to%20place%20an%20order." 
+          target="_blank" 
+          class="flex items-center gap-1.5 bg-emerald-900/80 hover:bg-emerald-950 px-2.5 py-1 rounded-full text-white font-bold border border-emerald-500/40 transition">
+          <i class="bi bi-whatsapp text-green-400"></i>
+          <span>Order on WhatsApp: <strong>8778574669</strong></span>
+        </a>
+
+        <!-- Background Music Button -->
+        <button 
+          id="music-toggle-btn" 
+          onclick="toggleMusic()" 
+          class="flex items-center gap-1 bg-emerald-900/60 hover:bg-emerald-950 px-2.5 py-1 rounded-full text-gray-200 transition" 
+          title="Play relaxing ambient shopping background music">
+          <i class="bi bi-music-note-beamed"></i>
+          <span>Music: OFF</span>
+        </button>
+
+        <!-- Sound FX Button -->
+        <button 
+          id="sound-fx-toggle-btn" 
+          onclick="toggleSoundFx()" 
+          class="flex items-center gap-1 bg-emerald-900/60 hover:bg-emerald-950 px-2.5 py-1 rounded-full text-gray-200 transition" 
+          title="Toggle interactive sound effects">
+          <i class="bi bi-volume-up-fill text-emerald-400"></i>
+          <span>Sound FX: ON</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN NAVIGATION HEADER -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm transition-all">
+    <div class="max-w-7xl mx-auto px-4 py-3 sm:py-3.5">
+      <div class="flex items-center justify-between gap-3 sm:gap-6">
+        
+        <!-- BRAND LOGO -->
+        <a href="#" class="flex items-center gap-3 flex-shrink-0 group">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-700 to-green-500 flex items-center justify-center text-white shadow-md shadow-emerald-700/20 group-hover:scale-105 transition-transform">
+            <i class="bi bi-shop-window text-2xl"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-xl sm:text-2xl font-black tracking-tight text-gray-900 brand-font group-hover:text-emerald-700 transition">
+                SELVAN
+              </span>
+              <span class="text-xs uppercase tracking-widest font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                SUPER MARKET
+              </span>
+            </div>
+            <p class="text-[11px] text-gray-500 font-medium hidden sm:block">WhatsApp Order: 8778574669 • Wholesale Rates</p>
+          </div>
+        </a>
+
+        <!-- SEARCH BAR (Real-Time Product Searching) -->
+        <div class="flex-1 max-w-2xl">
+          <div class="relative search-container rounded-2xl border border-gray-300 bg-gray-50/80 transition-all">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+              <i class="bi bi-search text-base"></i>
+            </div>
+            <input 
+              type="text" 
+              id="search-input" 
+              placeholder="Search all products (Atta, Oil, Ghee, Milk, Dal, Soap, Rice)..."
+              class="w-full pl-10 pr-10 py-2.5 sm:py-3 bg-transparent text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none rounded-2xl font-medium"
+              autocomplete="off"
+            />
+            <button 
+              id="clear-search-btn" 
+              class="hidden absolute inset-y-0 right-0 pr-3.5 flex items-center text-gray-400 hover:text-gray-700 transition"
+              title="Clear search">
+              <i class="bi bi-x-circle-fill text-lg"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- HEADER ACTIONS: WhatsApp Order & Cart -->
+        <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+          
+          <!-- Direct WhatsApp Button in Header -->
+          <a 
+            href="https://wa.me/918778574669?text=Hello%20Selvan%20Super%20Market%2C%20I%20would%20like%20to%20order%20groceries." 
+            target="_blank"
+            class="hidden md:flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-300 text-xs font-bold hover:bg-emerald-100 transition shadow-sm">
+            <i class="bi bi-whatsapp text-emerald-600 text-base"></i>
+            <div class="text-left leading-tight">
+              <span class="block text-[10px] text-gray-500 font-semibold uppercase">WhatsApp Order</span>
+              <span class="text-xs font-black text-emerald-900">8778574669</span>
+            </div>
+          </a>
+
+          <!-- Customer Cart Button -->
+          <button 
+            onclick="openCart()" 
+            class="relative flex items-center gap-2.5 px-3.5 sm:px-4 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl shadow-md shadow-emerald-700/20 transition group">
+            <div class="relative">
+              <i class="bi bi-basket3-fill text-lg sm:text-xl"></i>
+              <!-- Item Count Badge -->
+              <span 
+                id="cart-badge" 
+                class="hidden absolute -top-2 -right-2.5 w-5 h-5 bg-red-500 text-white text-[11px] font-black rounded-full flex items-center justify-center border-2 border-white">
+                0
+              </span>
+            </div>
+            <div class="hidden sm:flex flex-col text-left">
+              <span class="text-[10px] text-emerald-200 font-semibold uppercase leading-none">Your Cart</span>
+              <span id="cart-total-header" class="text-sm font-bold leading-tight">₹0</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Search Keywords Suggestion Chips -->
+    <div class="mt-2.5 pt-2 border-t border-gray-100 flex items-center gap-2 text-xs text-gray-600">
+      <span class="text-gray-400 font-semibold whitespace-nowrap text-[11px] flex items-center gap-1">
+        <i class="bi bi-fire text-amber-500"></i> Popular Searches:
+      </span>
+      <button onclick="quickSearch('Atta')" class="px-2.5 py-1 bg-gray-100 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg whitespace-nowrap transition">🌾 Atta</button>
+      <button onclick="quickSearch('Oil')" class="px-2.5 py-1 bg-gray-100 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg whitespace-nowrap transition">🌻 Sunflower Oil</button>
+      <button onclick="quickSearch('Ghee')" class="px-2.5 py-1 bg-gray-100 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg whitespace-nowrap transition">🧈 Pure Ghee</button>
+      <button onclick="quickSearch('Basmati')" class="px-2.5 py-1 bg-gray-100 hover-bg-emerald-50 hover:text-emerald-700 rounded-lg whitespace-nowrap transition">🍚 Basmati Rice</button>
+      <button onclick="quickSearch('Milk')" class="px-2.5 py-1 bg-gray-100 hover-bg-emerald-50 hover:text-emerald-700 rounded-lg whitespace-nowrap transition">🥛 Fresh Milk</button>
+      <button onclick="quickSearch('Tea')" class="px-2.5 py-1 bg-gray-100 hover-bg-emerald-50 hover:text-emerald-700 rounded-lg whitespace-nowrap transition">☕ Tata Tea</button>
+      <button onclick="quickSearch('Chocolate')" class="px-2.5 py-1 bg-gray-100 hover-bg-emerald-50 hover:text-emerald-700 rounded-lg whitespace-nowrap transition">🍫 Chocolates</button>
+    </div>
+  </header>
+
+  <!-- CATEGORY FILTER CHIPS -->
+  <section class="bg-white border-b border-gray-200 py-3 sticky top-[68px] sm:top-[76px] z-30 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4">
+      <div 
+        id="category-chips" 
+        class="flex items-center gap-2.5 overflow-x-auto no-scrollbar py-1">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN PRODUCT CATALOG & SEARCH RESULTS -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6">
+    
+    <!-- CONTROLS & FILTER BAR -->
+    <div class="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm mb-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        
+        <div>
+          <h2 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+            <span>Product Catalog</span>
+            <span id="results-count" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+              Loading products...
+            </span>
+          </h2>
+          <p class="text-xs text-gray-500 mt-0.5">
+            Showing all items with MRP, Sales Price & Offer Deadlines. Direct WhatsApp order to <strong>8778574669</strong>.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+          
+          <label class="flex items-center gap-2 cursor-pointer bg-gray-50 hover:bg-gray-100 px-3 py-2 rounded-xl border border-gray-200 transition">
+            <input 
+              type="checkbox" 
+              id="only-offers-toggle" 
+              class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500 cursor-pointer">
+            <span class="text-xs font-bold text-gray-700 flex items-center gap-1">
+              <i class="bi bi-tag-fill text-amber-500"></i> Active Offers Only
+            </span>
+          </label>
+
+          <div class="flex items-center gap-1.5">
+            <span class="text-xs font-semibold text-gray-500 hidden sm:inline">Sort:</span>
+            <select 
+              id="sort-select" 
+              class="text-xs sm:text-sm font-semibold bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-gray-700 focus:outline-none focus:border-emerald-500 cursor-pointer">
+              <option value="featured">Featured / Recommended</option>
+              <option value="ending_soon">⏳ Offer Ending Soonest</option>
+              <option value="discount">🔥 Highest Discount %</option>
+              <option value="price_asc">Price: Low to High</option>
+              <option value="price_desc">Price: High to Low</option>
+              <option value="name_asc">Product Name (A - Z)</option>
+            </select>
+          </div>
+
+          <div class="flex items-center border border-gray-200 rounded-xl overflow-hidden bg-gray-50 p-0.5">
+            <button 
+              id="view-grid-btn" 
+              onclick="setViewMode('grid')" 
+              class="p-2 rounded-lg bg-emerald-600 text-white transition text-xs font-bold flex items-center gap-1"
+              title="Grid View">
+              <i class="bi bi-grid-fill"></i>
+            </button>
+            <button 
+              id="view-list-btn" 
+              onclick="setViewMode('list')" 
+              class="p-2 rounded-lg bg-white text-gray-600 hover:text-emerald-700 transition text-xs font-bold flex items-center gap-1"
+              title="List View">
+              <i class="bi bi-view-list"></i>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div id="active-filter-bar" class="hidden mt-3 pt-3 border-t border-gray-100"></div>
+    </div>
+
+    <!-- PRODUCTS GRID CONTAINER -->
+    <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+
+    <!-- EMPTY STATE -->
+    <div id="empty-state" class="hidden py-16 text-center bg-white rounded-3xl border border-gray-200 p-8 shadow-xs">
+      <div class="w-20 h-20 mx-auto rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 mb-4 text-3xl">
+        <i class="bi bi-search"></i>
+      </div>
+      <h3 class="text-xl font-bold text-gray-900 mb-2">No matching products found</h3>
+      <p class="text-sm text-gray-500 max-w-md mx-auto mb-6">
+        We couldn't find any grocery items matching your search. Try searching for Atta, Oil, Ghee, Milk, or Tea.
+      </p>
+      <button 
+        onclick="resetAllFilters()" 
+        class="inline-flex items-center gap-2 px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl transition shadow-sm">
+        <i class="bi bi-arrow-counterclockwise"></i> Clear All Filters
+      </button>
+    </div>
+
+  </main>
+
+  <!-- CART SLIDE-IN DRAWER -->
+  <div id="drawer-backdrop" class="drawer-backdrop fixed inset-0 bg-slate-900/60 z-50 transition-opacity" onclick="closeCart()"></div>
+  <aside id="cart-drawer" class="drawer-panel fixed top-0 right-0 bottom-0 w-full sm:w-[460px] bg-white z-50 shadow-2xl flex flex-col justify-between">
+    
+    <!-- Drawer Header -->
+    <div class="p-4 sm:p-5 border-b border-gray-200 flex items-center justify-between bg-gray-50">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-lg">
+          <i class="bi bi-basket2-fill"></i>
+        </div>
+        <div>
+          <h3 class="font-bold text-base text-gray-900">Your Shopping Cart</h3>
+          <p class="text-xs text-gray-500">Selvan Super Market Direct WhatsApp Order</p>
+        </div>
+      </div>
+      <button onclick="closeCart()" class="w-8 h-8 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-200 flex items-center justify-center transition">
+        <i class="bi bi-x-lg text-lg"></i>
+      </button>
+    </div>
+
+    <!-- Drawer Items List -->
+    <div class="flex-1 overflow-y-auto p-4 space-y-3">
+      <!-- Empty Cart Message -->
+      <div id="cart-empty-message" class="py-16 text-center">
+        <div class="w-16 h-16 mx-auto rounded-full bg-gray-100 flex items-center justify-center text-gray-400 text-2xl mb-3">
+          <i class="bi bi-cart-x"></i>
+        </div>
+        <h4 class="font-bold text-gray-700">Your cart is empty</h4>
+        <p class="text-xs text-gray-400 mt-1 max-w-xs mx-auto">Explore our supermarket catalog with special offers and add items to your cart.</p>
+        <button onclick="closeCart()" class="mt-4 px-4 py-2 bg-emerald-600 text-white text-xs font-bold rounded-xl hover:bg-emerald-700 transition">
+          Browse Products
+        </button>
+      </div>
+
+      <!-- Items rendered here -->
+      <div id="cart-items-container" class="space-y-3"></div>
+    </div>
+
+    <!-- Drawer Summary, Customer Form & WhatsApp Checkout -->
+    <div id="cart-summary-section" class="hidden p-5 border-t border-gray-200 bg-gray-50 space-y-3">
+      
+      <!-- Customer Delivery Details Form (User-friendly ordering) -->
+      <div class="bg-white p-3 rounded-xl border border-gray-200 space-y-2">
+        <div class="text-xs font-bold text-gray-700 flex items-center gap-1.5">
+          <i class="bi bi-geo-alt-fill text-emerald-600"></i>
+          <span>Delivery Details (Sent with WhatsApp Order):</span>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <input 
+            type="text" 
+            id="cust-name-input" 
+            placeholder="Your Name (e.g. Ramesh)" 
+            class="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500 bg-gray-50"
+          />
+          <input 
+            type="text" 
+            id="cust-phone-input" 
+            placeholder="Phone (Optional)" 
+            class="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500 bg-gray-50"
+          />
+        </div>
+        <input 
+          type="text" 
+          id="cust-address-input" 
+          placeholder="Address / Street / Landmark (e.g. No 14, Main Bazaar)" 
+          class="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500 bg-gray-50"
+        />
+      </div>
+
+      <!-- Price Breakdown -->
+      <div class="space-y-1.5 text-xs">
+        <div class="flex justify-between text-gray-500">
+          <span>Total MRP Value:</span>
+          <span id="cart-total-mrp" class="font-medium">₹0</span>
+        </div>
+        <div class="flex justify-between text-emerald-700 font-bold">
+          <span>Total Store Discount:</span>
+          <span id="cart-total-savings">₹0</span>
+        </div>
+        <div class="flex justify-between text-gray-500">
+          <span>Home Delivery:</span>
+          <span class="text-emerald-700 font-bold uppercase text-[10px] bg-emerald-100 px-2 py-0.5 rounded">FREE (Above ₹500)</span>
+        </div>
+        <div class="pt-2 border-t border-gray-200 flex justify-between text-base font-extrabold text-gray-900">
+          <span>Final Payable Price:</span>
+          <span id="cart-final-total" class="text-xl text-emerald-800 brand-font">₹0</span>
+        </div>
+      </div>
+
+      <!-- Order Buttons -->
+      <div class="space-y-2 pt-2">
+        <button 
+          onclick="sendWhatsAppOrder()" 
+          class="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl flex items-center justify-center gap-2 shadow-lg transition">
+          <i class="bi bi-whatsapp text-xl"></i>
+          <span>Send Order to WhatsApp (8778574669)</span>
+        </button>
+        <div class="flex items-center gap-2">
+          <button 
+            onclick="clearCart()" 
+            class="flex-1 py-2 px-3 text-xs text-red-600 hover:bg-red-50 rounded-lg font-semibold transition border border-transparent hover:border-red-200">
+            <i class="bi bi-trash"></i> Clear Cart
+          </button>
+          <button 
+            onclick="closeCart()" 
+            class="flex-1 py-2 px-3 text-xs text-gray-600 hover:bg-gray-200 rounded-lg font-semibold transition">
+            Continue Shopping
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- PRODUCT QUICK VIEW MODAL -->
+  <div id="modal-backdrop" class="drawer-backdrop fixed inset-0 bg-slate-900/60 z-50 transition-opacity" onclick="closeQuickView()"></div>
+  <div id="quick-view-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full relative overflow-hidden" onclick="event.stopPropagation()">
+      <button 
+        onclick="closeQuickView()" 
+        class="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-white/90 text-gray-600 hover:text-gray-900 shadow flex items-center justify-center transition">
+        <i class="bi bi-x-lg text-lg"></i>
+      </button>
+      <div id="modal-content-area"></div>
+    </div>
+  </div>
+
+  <!-- FLOATING WHATSAPP QUICK BUTTON (Always Visible on Screen) -->
+  <a 
+    href="https://wa.me/918778574669?text=Hello%20Selvan%20Super%20Market%2C%20I%20want%20to%20place%20an%20order." 
+    target="_blank" 
+    class="fixed bottom-6 left-6 z-40 flex items-center gap-2 bg-[#25d366] hover:bg-[#20ba5a] text-white px-4 py-3 rounded-full shadow-2xl floating-whatsapp transition-transform hover:scale-105 group font-bold text-xs sm:text-sm">
+    <i class="bi bi-whatsapp text-2xl"></i>
+    <div class="text-left leading-tight hidden sm:block">
+      <span class="block text-[10px] text-emerald-950 font-black uppercase">Order on WhatsApp</span>
+      <span>8778574669</span>
+    </div>
+  </a>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast-notice" class="toast-notice fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-xl border border-slate-700 flex items-center gap-3">
+    <i class="bi bi-check-circle-fill text-emerald-400 text-xl"></i>
+    <span id="toast-message" class="text-sm font-semibold">Item updated</span>
+  </div>
+
+  <!-- STORE FOOTER -->
+  <footer class="bg-slate-900 text-gray-300 mt-16 pt-12 pb-8 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+      
+      <!-- Store Info -->
+      <div class="space-y-3">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white">
+            <i class="bi bi-shop-window text-lg"></i>
+          </div>
+          <span class="text-lg font-extrabold text-white brand-font">SELVAN SUPER MARKET</span>
+        </div>
+        <p class="text-xs text-gray-400 leading-relaxed">
+          Your neighborhood one-stop supermarket offering wholesale prices, genuine brand staples, daily fresh dairy, and unbeatable seasonal discounts.
+        </p>
+        <div class="flex items-center gap-2 text-emerald-400 text-xs font-semibold">
+          <i class="bi bi-patch-check-fill"></i> Verified Customer Friendly Store
+        </div>
+      </div>
+
+      <!-- Quick Categories -->
+      <div>
+        <h4 class="text-white font-bold text-sm mb-3">Popular Grocery Categories</h4>
+        <ul class="text-xs space-y-2 text-gray-400">
+          <li><button onclick="handleCategorySelect('grains')" class="hover:text-emerald-400 transition">Atta, Rice & Organic Dals</button></li>
+          <li><button onclick="handleCategorySelect('oils')" class="hover:text-emerald-400 transition">Pure Ghee & Edible Oils</button></li>
+          <li><button onclick="handleCategorySelect('dairy')" class="hover:text-emerald-400 transition">Fresh Milk & Dairy Products</button></li>
+          <li><button onclick="handleCategorySelect('beverages')" class="hover:text-emerald-400 transition">Tea, Coffee & Health Drinks</button></li>
+          <li><button onclick="handleCategorySelect('household')" class="hover:text-emerald-400 transition">Dishwash & Laundry Detergents</button></li>
+        </ul>
+      </div>
+
+      <!-- Store Hours & Location -->
+      <div>
+        <h4 class="text-white font-bold text-sm mb-3">Store Contact & Timings</h4>
+        <ul class="text-xs space-y-2.5 text-gray-400">
+          <li class="flex items-start gap-2">
+            <i class="bi bi-geo-alt text-emerald-400 mt-0.5"></i>
+            <span>Main Bazaar Road, Near Bus Stand, Town Center</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <i class="bi bi-clock text-emerald-400"></i>
+            <span>Daily: 7:00 AM – 10:30 PM (All 7 Days)</span>
+          </li>
+          <li class="flex items-center gap-2 text-emerald-300 font-bold">
+            <i class="bi bi-whatsapp text-green-400 text-base"></i>
+            <a href="https://wa.me/918778574669" target="_blank" class="hover:underline">WhatsApp: 8778574669</a>
+          </li>
+          <li class="flex items-center gap-2">
+            <i class="bi bi-envelope text-emerald-400"></i>
+            <span>orders@selvansupermarket.com</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Direct WhatsApp Order Box -->
+      <div>
+        <h4 class="text-white font-bold text-sm mb-3">Instant WhatsApp Orders</h4>
+        <p class="text-xs text-gray-400 leading-relaxed mb-3">
+          Have a shopping list? Click below to send your item list directly to <strong>8778574669</strong>. We pack and deliver to your doorstep!
+        </p>
+        <a 
+          href="https://wa.me/918778574669?text=Hello%20Selvan%20Super%20Market%2C%20here%20is%20my%20order." 
+          target="_blank"
+          class="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition shadow">
+          <i class="bi bi-whatsapp text-sm"></i> Chat on WhatsApp (8778574669)
+        </a>
+      </div>
+
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-2">
+      <p>© 2026 Selvan Super Market. WhatsApp: 8778574669. All Offers Subject to Expiry Dates.</p>
+      <p class="flex items-center gap-3">
+        <span>Transparent MRP & Sales Price</span>
+        <span>•</span>
+        <span>Fast Local Delivery</span>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="audio.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selvan Super Market - Order via WhatsApp (8778574669) | All Products, MRP & Offer Prices</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              300: '#86efac',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+            },
+            whatsapp: {
+              DEFAULT: '#25d366',
+              dark: '#128c7e',
+              light: '#dcf8c6'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Bootstrap Icons CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+  <!-- TOP ANNOUNCEMENT BAR -->
+  <div class="bg-gradient-to-r from-emerald-800 via-emerald-700 to-green-800 text-white text-xs py-2 px-4 shadow-sm">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-1.5 text-center sm:text-left">
+      <div class="flex items-center gap-2 font-medium">
+        <span class="bg-amber-400 text-emerald-950 font-extrabold px-2 py-0.5 rounded text-[10px] uppercase tracking-wider">Mega Sale</span>
+        <span>🎉 Flat 15% to 40% OFF on Groceries & Home Essentials! Daily Fresh Stock.</span>
+      </div>
+      
+      <!-- WhatsApp & Audio Controls -->
+      <div class="flex items-center gap-3 text-emerald-100 text-[11px] flex-wrap justify-center">
+        <!-- Direct WhatsApp Link -->
+        <a 
+          href="https://wa.me/918778574669?text=Hello%20Selvan%20Super%20Market%2C%20I%20want%20to%20place%20an%20order." 
+          target="_blank" 
+          class="flex items-center gap-1.5 bg-emerald-900/80 hover:bg-emerald-950 px-2.5 py-1 rounded-full text-white font-bold border border-emerald-500/40 transition">
+          <i class="bi bi-whatsapp text-green-400"></i>
+          <span>Order on WhatsApp: <strong>8778574669</strong></span>
+        </a>
+
+        <!-- Background Music Button -->
+        <button 
+          id="music-toggle-btn" 
+          onclick="toggleMusic()" 
+          class="flex items-center gap-1 bg-emerald-900/60 hover:bg-emerald-950 px-2.5 py-1 rounded-full text-gray-200 transition"
+          title="Play relaxing ambient shopping background music">
+          <i class="bi bi-music-note-beamed"></i>
+          <span>Music: OFF</span>
+        </button>
+
+        <!-- Sound FX Button -->
+        <button 
+          id="sound-fx-toggle-btn" 
+          onclick="toggleSoundFx()" 
+          class="flex items-center gap-1 bg-emerald-900/60 hover:bg-emerald-950 px-2.5 py-1 rounded-full text-gray-200 transition"
+          title="Toggle interactive sound effects">
+          <i class="bi bi-volume-up-fill text-emerald-400"></i>
+          <span>Sound FX: ON</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN NAVIGATION HEADER -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm transition-all">
+    <div class="max-w-7xl mx-auto px-4 py-3 sm:py-3.5">
+      <div class="flex items-center justify-between gap-3 sm:gap-6">
+        
+        <!-- BRAND LOGO -->
+        <a href="#" class="flex items-center gap-3 flex-shrink-0 group">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-700 to-green-500 flex items-center justify-center text-white shadow-md shadow-emerald-700/20 group-hover:scale-105 transition-transform">
+            <i class="bi bi-shop-window text-2xl"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-xl sm:text-2xl font-black tracking-tight text-gray-900 brand-font group-hover:text-emerald-700 transition">
+                SELVAN
+              </span>
+              <span class="text-xs uppercase tracking-widest font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                SUPER MARKET
+              </span>
+            </div>
+            <p class="text-[11px] text-gray-500 font-medium hidden sm:block">WhatsApp Order: 8778574669 • Wholesale Rates</p>
+          </div>
+        </a>
+
+        <!-- SEARCH BAR (Real-Time Product Searching) -->
+        <div class="flex-1 max-w-2xl">
+          <div class="relative search-container rounded-2xl border border-gray-300 bg-gray-50/80 transition-all">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+              <i class="bi bi-search text-base"></i>
+            </div>
+            <input 
+              type="text" 
+              id="search-input" 
+              placeholder="Search all products (Atta, Oil, Ghee, Milk, Dal, Soap, Rice)..."
+              class="w-full pl-10 pr-10 py-2.5 sm:py-3 bg-transparent text-sm sm:text-base text-gray-900 placeholder-gray-400 focus:outline-none rounded-2xl font-medium"
+              autocomplete="off"
+            />
+            <button 
+              id="clear-search-btn" 
+              class="hidden absolute inset-y-0 right-0 pr-3.5 flex items-center text-gray-400 hover:text-gray-700 transition"
+              title="Clear search">
+              <i class="bi bi-x-circle-fill text-lg"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- HEADER ACTIONS: WhatsApp Order & Cart -->
+        <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+          
+          <!-- Direct WhatsApp Button in Header -->
+          <a 
+            href="https://wa.me/918778574669?text=Hello%20Selvan%20Super%20Market%2C%20I%20would%20like%20to%20order%20groceries." 
+            target="_blank"
+            class="hidden md:flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-300 text-xs font-bold hover:bg-emerald-100 transition shadow-sm">
+            <i class="bi bi-whatsapp text-emerald-600 text-base"></i>
+            <div class="text-left leading-tight">
+              <span class="block text-[10px] text-gray-500 font-semibold uppercase">WhatsApp Order</span>
+              <span class="text-xs font-black text-emerald-900">8778574669</span>
+            </div>
+          </a>
+
+          <!-- Customer Cart Button -->
+          <button 
+            onclick="openCart()" 
+            class="relative flex items-center gap-2.5 px-3.5 sm:px-4 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl shadow-md shadow-emerald-700/20 transition group">
+            <div class="relative">
+              <i class="bi bi-basket3-fill text-lg sm:text-xl"></i>
+              <!-- Item Count Badge -->
+              <span 
+                id="cart-badge" 
+                class="hidden absolute -top-2 -right-2.5 w-5 h-5 bg-red-500 text-white text-[11px] font-black rounded-full flex items-center justify-center border-2 border-white">
+                0
+              </span>
+            </div>
+            <div class="hidden sm:flex flex-col text-left">
+              <span class="text-[10px] text-emerald-200 font-semibold uppercase leading-none">Your Cart</span>
+              <span id="cart-total-header" class="text-sm font-bold leading-tight">₹0</span>
+            </div>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Quick Search Keywords Suggestion Chips -->
+      <div class="mt-2.5 pt-2 border-t border-gray-100 flex items-center gap-2 overflow-x-auto no-scrollbar text-xs text-gray-600">
+        <span class="text-gray-400 font-semibold whitespace-nowrap text-[11px] flex items-center gap-1">
+          <i class="bi bi-fire text-amber-500"></i> Popular Searches:
+        </span>
+        <button onclick="quickSearch('Atta')" class="px-2.5 py-1 bg-gray-100 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg whitespace-nowrap transition">🌾 Atta</button>
+        <button onclick="quickSearch('Oil')" class="px-2.5 py-1 bg-gray-100 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg whitespace-nowrap transition">🌻 Sunflower Oil</button>
+        <button onclick="quickSearch('Ghee')" class="px-2.5 py-1 bg-gray-100 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg whitespace-nowrap transition">🧈 Pure Ghee</button>
+        <button onclick="quickSearch('Basmati')" class="px-2.5 py-1 bg-gray-100 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg whitespace-nowrap transition">🍚 Basmati Rice</button>
+        <button onclick="quickSearch('Milk')" class="px-2.5 py-1 bg-gray-100 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg whitespace-nowrap transition">🥛 Fresh Milk</button>
+        <button onclick="quickSearch('Tea')" class="px-2.5 py-1 bg-gray-100 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg whitespace-nowrap transition">☕ Tata Tea</button>
+        <button onclick="quickSearch('Chocolate')" class="px-2.5 py-1 bg-gray-100 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg whitespace-nowrap transition">🍫 Chocolates</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO PROMO & OFFER HIGHLIGHT BANNER -->
+  <section class="bg-gradient-to-br from-emerald-900 via-emerald-800 to-green-900 text-white relative overflow-hidden py-8 sm:py-10">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <div class="lg:col-span-8">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-700/60 border border-emerald-500/40 text-emerald-200 text-xs font-semibold mb-3">
+            <i class="bi bi-whatsapp text-green-400"></i> WhatsApp Ordering Available: <strong>8778574669</strong>
+          </div>
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-white">
+            Welcome to <span class="text-amber-300">Selvan Super Market</span>
+          </h1>
+          <p class="mt-3 text-sm sm:text-base text-emerald-100 max-w-2xl leading-relaxed">
+            Browse our full catalog with transparent <strong>MRP</strong> and special discounted <strong>Sales Prices</strong>. Track live offer finishing dates and send your complete order directly to our WhatsApp number <strong>8778574669</strong>!
+          </p>
+
+          <!-- Store Trust Badges -->
+          <div class="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="flex items-center gap-2 bg-emerald-800/60 border border-emerald-700/50 p-2.5 rounded-xl">
+              <i class="bi bi-tag-fill text-amber-400 text-xl"></i>
+              <div>
+                <div class="text-xs font-bold">MRP vs Discount</div>
+                <div class="text-[10px] text-emerald-200">Clear Customer Savings</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 bg-emerald-800/60 border border-emerald-700/50 p-2.5 rounded-xl">
+              <i class="bi bi-clock-history text-amber-400 text-xl"></i>
+              <div>
+                <div class="text-xs font-bold">Offer Deadlines</div>
+                <div class="text-[10px] text-emerald-200">Live Expiry Countdown</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 bg-emerald-800/60 border border-emerald-700/50 p-2.5 rounded-xl">
+              <i class="bi bi-truck text-amber-400 text-xl"></i>
+              <div>
+                <div class="text-xs font-bold">Free Home Delivery</div>
+                <div class="text-[10px] text-emerald-200">Orders Above ₹500</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 bg-emerald-800/60 border border-emerald-700/50 p-2.5 rounded-xl">
+              <i class="bi bi-whatsapp text-green-400 text-xl"></i>
+              <div>
+                <div class="text-xs font-bold">8778574669</div>
+                <div class="text-[10px] text-emerald-200">Instant Order & Reply</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FLASH OFFER SPOTLIGHT CARD -->
+        <div class="lg:col-span-4">
+          <div class="bg-white text-gray-900 rounded-3xl p-5 shadow-2xl border-4 border-amber-400 relative">
+            <div class="absolute -top-3.5 right-6 bg-gradient-to-r from-red-600 to-amber-500 text-white text-[11px] font-black uppercase px-3 py-1 rounded-full shadow-md flex items-center gap-1">
+              <i class="bi bi-lightning-fill"></i> Spotlight Mega Deal
+            </div>
+
+            <div class="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-1">
+              Featured Deal
+            </div>
+            <h3 class="font-extrabold text-lg text-gray-900 leading-snug">
+              Amul Pure Cow Ghee Gold Tin (1 Litre)
+            </h3>
+
+            <div class="mt-3 flex items-baseline gap-3">
+              <span class="text-3xl font-black text-gray-900">₹579</span>
+              <span class="mrp-strike text-base text-gray-400 font-medium">MRP: ₹690</span>
+              <span class="bg-red-100 text-red-700 text-xs font-black px-2 py-0.5 rounded-full">Save ₹111</span>
+            </div>
+
+            <div class="mt-3 p-3 bg-amber-50 rounded-2xl border border-amber-200 text-xs">
+              <div class="flex items-center justify-between text-amber-900 font-bold mb-1">
+                <span>Offer Expiration:</span>
+                <span class="text-red-600 font-black animate-pulse">Ending Soon</span>
+              </div>
+              <div class="text-[11px] text-amber-800 flex items-center gap-1.5 font-medium">
+                <i class="bi bi-calendar2-check-fill text-amber-600"></i>
+                Valid Till: 08 Oct 2026, 11:59 PM
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 mt-4">
+              <button 
+                onclick="addToCart('prod-003')" 
+                class="py-2.5 px-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl flex items-center justify-center gap-1.5 shadow-md transition text-xs">
+                <i class="bi bi-cart-plus-fill"></i> Add to Cart
+              </button>
+              <button 
+                onclick="orderSingleProductWhatsApp('prod-003')" 
+                class="py-2.5 px-3 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl flex items-center justify-center gap-1.5 shadow-md transition text-xs">
+                <i class="bi bi-whatsapp"></i> WhatsApp Order
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORY FILTER CHIPS -->
+  <section class="bg-white border-b border-gray-200 py-3 sticky top-[68px] sm:top-[76px] z-30 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4">
+      <div 
+        id="category-chips" 
+        class="flex items-center gap-2.5 overflow-x-auto no-scrollbar py-1">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN PRODUCT CATALOG & SEARCH RESULTS -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6">
+    
+    <!-- CONTROLS & FILTER BAR -->
+    <div class="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm mb-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        
+        <div>
+          <h2 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+            <span>Product Catalog</span>
+            <span id="results-count" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+              Loading products...
+            </span>
+          </h2>
+          <p class="text-xs text-gray-500 mt-0.5">
+            Showing all items with MRP, Sales Price & Offer Deadlines. Direct WhatsApp order to <strong>8778574669</strong>.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+          
+          <label class="flex items-center gap-2 cursor-pointer bg-gray-50 hover:bg-gray-100 px-3 py-2 rounded-xl border border-gray-200 transition">
+            <input 
+              type="checkbox" 
+              id="only-offers-toggle" 
+              class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500 cursor-pointer"
+            />
+            <span class="text-xs font-bold text-gray-700 flex items-center gap-1">
+              <i class="bi bi-tag-fill text-amber-500"></i> Active Offers Only
+            </span>
+          </label>
+
+          <div class="flex items-center gap-1.5">
+            <span class="text-xs font-semibold text-gray-500 hidden sm:inline">Sort:</span>
+            <select 
+              id="sort-select" 
+              class="text-xs sm:text-sm font-semibold bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-gray-700 focus:outline-none focus:border-emerald-500 cursor-pointer">
+              <option value="featured">Featured / Recommended</option>
+              <option value="ending_soon">⏳ Offer Ending Soonest</option>
+              <option value="discount">🔥 Highest Discount %</option>
+              <option value="price_asc">Price: Low to High</option>
+              <option value="price_desc">Price: High to Low</option>
+              <option value="name_asc">Product Name (A - Z)</option>
+            </select>
+          </div>
+
+          <div class="flex items-center border border-gray-200 rounded-xl overflow-hidden bg-gray-50 p-0.5">
+            <button 
+              id="view-grid-btn" 
+              onclick="setViewMode('grid')" 
+              class="p-2 rounded-lg bg-emerald-600 text-white transition text-xs font-bold flex items-center gap-1"
+              title="Grid View">
+              <i class="bi bi-grid-fill"></i>
+            </button>
+            <button 
+              id="view-list-btn" 
+              onclick="setViewMode('list')" 
+              class="p-2 rounded-lg bg-white text-gray-600 hover:text-emerald-700 transition text-xs font-bold flex items-center gap-1"
+              title="List View">
+              <i class="bi bi-view-list"></i>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div id="active-filter-bar" class="hidden mt-3 pt-3 border-t border-gray-100"></div>
+    </div>
+
+    <!-- PRODUCTS GRID CONTAINER -->
+    <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+
+    <!-- EMPTY STATE -->
+    <div id="empty-state" class="hidden py-16 text-center bg-white rounded-3xl border border-gray-200 p-8 shadow-xs">
+      <div class="w-20 h-20 mx-auto rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 mb-4 text-3xl">
+        <i class="bi bi-search"></i>
+      </div>
+      <h3 class="text-xl font-bold text-gray-900 mb-2">No matching products found</h3>
+      <p class="text-sm text-gray-500 max-w-md mx-auto mb-6">
+        We couldn't find any grocery items matching your search. Try searching for Atta, Oil, Ghee, Milk, or Tea.
+      </p>
+      <button 
+        onclick="resetAllFilters()" 
+        class="inline-flex items-center gap-2 px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl transition shadow-sm">
+        <i class="bi bi-arrow-counterclockwise"></i> Clear All Filters
+      </button>
+    </div>
+
+  </main>
+
+  <!-- CART SLIDE-IN DRAWER -->
+  <div id="drawer-backdrop" class="drawer-backdrop fixed inset-0 bg-slate-900/60 z-50 transition-opacity" onclick="closeCart()"></div>
+  <aside id="cart-drawer" class="drawer-panel fixed top-0 right-0 bottom-0 w-full sm:w-[460px] bg-white z-50 shadow-2xl flex flex-col justify-between">
+    
+    <!-- Drawer Header -->
+    <div class="p-4 sm:p-5 border-b border-gray-200 flex items-center justify-between bg-gray-50">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-lg">
+          <i class="bi bi-basket2-fill"></i>
+        </div>
+        <div>
+          <h3 class="font-bold text-base text-gray-900">Your Shopping Cart</h3>
+          <p class="text-xs text-gray-500">Selvan Super Market Direct WhatsApp Order</p>
+        </div>
+      </div>
+      <button onclick="closeCart()" class="w-8 h-8 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-200 flex items-center justify-center transition">
+        <i class="bi bi-x-lg text-lg"></i>
+      </button>
+    </div>
+
+    <!-- Drawer Items List -->
+    <div class="flex-1 overflow-y-auto p-4 space-y-3">
+      <!-- Empty Cart Message -->
+      <div id="cart-empty-message" class="py-16 text-center">
+        <div class="w-16 h-16 mx-auto rounded-full bg-gray-100 flex items-center justify-center text-gray-400 text-2xl mb-3">
+          <i class="bi bi-cart-x"></i>
+        </div>
+        <h4 class="font-bold text-gray-700">Your cart is empty</h4>
+        <p class="text-xs text-gray-400 mt-1 max-w-xs mx-auto">Explore our supermarket catalog with special offers and add items to your cart.</p>
+        <button onclick="closeCart()" class="mt-4 px-4 py-2 bg-emerald-600 text-white text-xs font-bold rounded-xl hover:bg-emerald-700 transition">
+          Browse Products
+        </button>
+      </div>
+
+      <!-- Items rendered here -->
+      <div id="cart-items-container" class="space-y-3"></div>
+    </div>
+
+    <!-- Drawer Summary, Customer Form & WhatsApp Checkout -->
+    <div id="cart-summary-section" class="hidden p-5 border-t border-gray-200 bg-gray-50 space-y-3">
+      
+      <!-- Customer Delivery Details Form (User-friendly ordering) -->
+      <div class="bg-white p-3 rounded-xl border border-gray-200 space-y-2">
+        <div class="text-xs font-bold text-gray-700 flex items-center gap-1.5">
+          <i class="bi bi-geo-alt-fill text-emerald-600"></i>
+          <span>Delivery Details (Sent with WhatsApp Order):</span>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <input 
+            type="text" 
+            id="cust-name-input" 
+            placeholder="Your Name (e.g. Ramesh)" 
+            class="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500 bg-gray-50"
+          />
+          <input 
+            type="text" 
+            id="cust-phone-input" 
+            placeholder="Phone (Optional)" 
+            class="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500 bg-gray-50"
+          />
+        </div>
+        <input 
+          type="text" 
+          id="cust-address-input" 
+          placeholder="Address / Street / Landmark (e.g. No 14, Main Bazaar)" 
+          class="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500 bg-gray-50"
+        />
+      </div>
+
+      <!-- Price Breakdown -->
+      <div class="space-y-1.5 text-xs">
+        <div class="flex justify-between text-gray-500">
+          <span>Total MRP Value:</span>
+          <span id="cart-total-mrp" class="font-medium">₹0</span>
+        </div>
+        <div class="flex justify-between text-emerald-700 font-bold">
+          <span>Total Store Discount:</span>
+          <span id="cart-total-savings">₹0</span>
+        </div>
+        <div class="flex justify-between text-gray-500">
+          <span>Home Delivery:</span>
+          <span class="text-emerald-700 font-bold uppercase text-[10px] bg-emerald-100 px-2 py-0.5 rounded">FREE (Above ₹500)</span>
+        </div>
+        <div class="pt-2 border-t border-gray-200 flex justify-between text-base font-extrabold text-gray-900">
+          <span>Final Payable Price:</span>
+          <span id="cart-final-total" class="text-xl text-emerald-800 brand-font">₹0</span>
+        </div>
+      </div>
+
+      <!-- Order Buttons -->
+      <div class="space-y-2 pt-2">
+        <button 
+          onclick="sendWhatsAppOrder()" 
+          class="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl flex items-center justify-center gap-2 shadow-lg transition">
+          <i class="bi bi-whatsapp text-xl"></i>
+          <span>Send Order to WhatsApp (8778574669)</span>
+        </button>
+        <div class="flex items-center gap-2">
+          <button 
+            onclick="clearCart()" 
+            class="flex-1 py-2 px-3 text-xs text-red-600 hover:bg-red-50 rounded-lg font-semibold transition border border-transparent hover:border-red-200">
+            <i class="bi bi-trash"></i> Clear Cart
+          </button>
+          <button 
+            onclick="closeCart()" 
+            class="flex-1 py-2 px-3 text-xs text-gray-600 hover:bg-gray-200 rounded-lg font-semibold transition">
+            Continue Shopping
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- PRODUCT QUICK VIEW MODAL -->
+  <div id="modal-backdrop" class="drawer-backdrop fixed inset-0 bg-slate-900/60 z-50 transition-opacity" onclick="closeQuickView()"></div>
+  <div id="quick-view-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full relative overflow-hidden" onclick="event.stopPropagation()">
+      <button 
+        onclick="closeQuickView()" 
+        class="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-white/90 text-gray-600 hover:text-gray-900 shadow flex items-center justify-center transition">
+        <i class="bi bi-x-lg text-lg"></i>
+      </button>
+      <div id="modal-content-area"></div>
+    </div>
+  </div>
+
+  <!-- FLOATING WHATSAPP QUICK BUTTON (Always Visible on Screen) -->
+  <a 
+    href="https://wa.me/918778574669?text=Hello%20Selvan%20Super%20Market%2C%20I%20want%20to%20place%20an%20order." 
+    target="_blank" 
+    class="fixed bottom-6 left-6 z-40 flex items-center gap-2 bg-[#25d366] hover:bg-[#20ba5a] text-white px-4 py-3 rounded-full shadow-2xl floating-whatsapp transition-transform hover:scale-105 group font-bold text-xs sm:text-sm">
+    <i class="bi bi-whatsapp text-2xl"></i>
+    <div class="text-left leading-tight hidden sm:block">
+      <span class="block text-[10px] text-emerald-950 font-black uppercase">Order on WhatsApp</span>
+      <span>8778574669</span>
+    </div>
+  </a>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast-notice" class="toast-notice fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-xl border border-slate-700 flex items-center gap-3">
+    <i class="bi bi-check-circle-fill text-emerald-400 text-xl"></i>
+    <span id="toast-message" class="text-sm font-semibold">Item updated</span>
+  </div>
+
+  <!-- STORE FOOTER -->
+  <footer class="bg-slate-900 text-gray-300 mt-16 pt-12 pb-8 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+      
+      <!-- Store Info -->
+      <div class="space-y-3">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white">
+            <i class="bi bi-shop-window text-lg"></i>
+          </div>
+          <span class="text-lg font-extrabold text-white brand-font">SELVAN SUPER MARKET</span>
+        </div>
+        <p class="text-xs text-gray-400 leading-relaxed">
+          Your neighborhood one-stop supermarket offering wholesale prices, genuine brand staples, daily fresh dairy, and unbeatable seasonal discounts.
+        </p>
+        <div class="flex items-center gap-2 text-emerald-400 text-xs font-semibold">
+          <i class="bi bi-patch-check-fill"></i> Verified Customer Friendly Store
+        </div>
+      </div>
+
+      <!-- Quick Categories -->
+      <div>
+        <h4 class="text-white font-bold text-sm mb-3">Popular Grocery Categories</h4>
+        <ul class="text-xs space-y-2 text-gray-400">
+          <li><button onclick="handleCategorySelect('grains')" class="hover:text-emerald-400 transition">Atta, Rice & Organic Dals</button></li>
+          <li><button onclick="handleCategorySelect('oils')" class="hover:text-emerald-400 transition">Pure Ghee & Edible Oils</button></li>
+          <li><button onclick="handleCategorySelect('dairy')" class="hover:text-emerald-400 transition">Fresh Milk & Dairy Products</button></li>
+          <li><button onclick="handleCategorySelect('beverages')" class="hover:text-emerald-400 transition">Tea, Coffee & Health Drinks</button></li>
+          <li><button onclick="handleCategorySelect('household')" class="hover:text-emerald-400 transition">Dishwash & Laundry Detergents</button></li>
+        </ul>
+      </div>
+
+      <!-- Store Hours & Location -->
+      <div>
+        <h4 class="text-white font-bold text-sm mb-3">Store Contact & Timings</h4>
+        <ul class="text-xs space-y-2.5 text-gray-400">
+          <li class="flex items-start gap-2">
+            <i class="bi bi-geo-alt text-emerald-400 mt-0.5"></i>
+            <span>Main Bazaar Road, Near Bus Stand, Town Center</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <i class="bi bi-clock text-emerald-400"></i>
+            <span>Daily: 7:00 AM – 10:30 PM (All 7 Days)</span>
+          </li>
+          <li class="flex items-center gap-2 text-emerald-300 font-bold">
+            <i class="bi bi-whatsapp text-green-400 text-base"></i>
+            <a href="https://wa.me/918778574669" target="_blank" class="hover:underline">WhatsApp: 8778574669</a>
+          </li>
+          <li class="flex items-center gap-2">
+            <i class="bi bi-envelope text-emerald-400"></i>
+            <span>orders@selvansupermarket.com</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Direct WhatsApp Order Box -->
+      <div>
+        <h4 class="text-white font-bold text-sm mb-3">Instant WhatsApp Orders</h4>
+        <p class="text-xs text-gray-400 leading-relaxed mb-3">
+          Have a shopping list? Click below to send your item list directly to <strong>8778574669</strong>. We pack and deliver to your doorstep!
+        </p>
+        <a 
+          href="https://wa.me/918778574669?text=Hello%20Selvan%20Super%20Market%2C%20here%20is%20my%20order." 
+          target="_blank"
+          class="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition shadow">
+          <i class="bi bi-whatsapp text-sm"></i> Chat on WhatsApp (8778574669)
+        </a>
+      </div>
+
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-2">
+      <p>© 2026 Selvan Super Market. WhatsApp: 8778574669. All Offers Subject to Expiry Dates.</p>
+      <p class="flex items-center gap-3">
+        <span>Transparent MRP & Sales Price</span>
+        <span>•</span>
+        <span>Fast Local Delivery</span>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="audio.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
